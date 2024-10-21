@@ -3,11 +3,11 @@ spring:
     name: billing
   datasource:
     driver-class-name: org.postgresql.Driver
-    username: postgres
-    url: jdbc:postgresql://localhost:5432/postgres
-    password: postgres
+    username: ${usernameDB}
+    url: ${url}
+    password: ${passwordDB}
   jpa:
-    database: postgres
+    database: POSTGRESQL
     hibernate:
       ddl-auto: update
     show-sql: 'true'
