@@ -1,4 +1,4 @@
-package ru.ibatov.billing.entity;
+package ru.ibatov.billing.entity.People;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -7,20 +7,20 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "outcome")
+@Table(name = "usr")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Outcome {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private int id_phone;
+    private String name;
 
-    private float money;
+    private String surname;
 
-    private String reason;
+    private String patronymic;
 }

@@ -1,4 +1,4 @@
-package ru.ibatov.billing.entity;
+package ru.ibatov.billing.entity.People;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -6,21 +6,23 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Entity
-@Table(name = "historyTariffWaste")
+@Table(name = "refreshToken")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class HistoryTariffWaste {
+public class RefreshToken {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private int id_phone;
+    private Long user_id;
 
-    private float value;
+    private String token;
 
-    private int id_typeResource;
+    private Date expireDate;
 }

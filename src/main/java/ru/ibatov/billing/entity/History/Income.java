@@ -1,4 +1,4 @@
-package ru.ibatov.billing.entity;
+package ru.ibatov.billing.entity.History;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -7,16 +7,20 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "typeResource")
+@Table(name = "income")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class TypeResource {
+public class Income {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Long id;
 
-    private String name;
+    private int id_phone;
+
+    private float money;
+
+    private String source;
 }

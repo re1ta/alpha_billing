@@ -1,4 +1,4 @@
-package ru.ibatov.billing.entity;
+package ru.ibatov.billing.entity.Names;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -7,16 +7,16 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "operator")
+@Table(name = "typeResource")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Operator {
+public class TypeResource {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private int id;
 
-    private String username;
+    private String name;
 }
