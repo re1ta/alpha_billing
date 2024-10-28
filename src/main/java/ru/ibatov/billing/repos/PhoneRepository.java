@@ -6,4 +6,5 @@ import ru.ibatov.billing.entity.Phone;
 
 @Repository
 public interface PhoneRepository extends JpaRepository<Phone, Integer> {
+
 }
