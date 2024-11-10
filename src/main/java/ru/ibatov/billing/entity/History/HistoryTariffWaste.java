@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Entity
 @Table(name = "historyTariffWaste")
 @Data
@@ -23,4 +25,13 @@ public class HistoryTariffWaste {
     private float value;
 
     private int id_typeResource;
+
+    private Date date;
+
+    public HistoryTariffWaste(int id_phone, float value, int id_typeResource, Date date) {
+        this.id_phone = id_phone;
+        this.value = value;
+        this.id_typeResource = id_typeResource;
+        this.date = date;
+    }
 }
