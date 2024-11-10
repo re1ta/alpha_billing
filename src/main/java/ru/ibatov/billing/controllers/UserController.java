@@ -2,6 +2,7 @@ package ru.ibatov.billing.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import ru.ibatov.billing.dto.UserPhonesDto;
 import ru.ibatov.billing.service.UserService;
 import ru.ibatov.billing.dto.UserDto;
 import ru.ibatov.billing.entity.People.User;
@@ -18,6 +19,11 @@ public class UserController {
     @GetMapping("/")
     public List<User> getUsers(){
         return userService.findAllUsers();
+    }
+
+    @GetMapping("/{id}")
+    public UserPhonesDto getUser(@PathVariable Long id){
+        return userService.fullInfoUser(id);
     }
 
     @PostMapping("/")

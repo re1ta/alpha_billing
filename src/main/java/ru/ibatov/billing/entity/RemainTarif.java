@@ -7,20 +7,22 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "service")
+@Table(name = "remainTarif")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Service {
+public class RemainTarif {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private int id_range;
+    private int id_phone;
 
-    private int id_typeResource;
+    private float internet;
 
-    private float coefficient;
+    private float minutes;
+
+    private int sms;
 }

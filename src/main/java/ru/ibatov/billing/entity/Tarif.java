@@ -6,25 +6,25 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
-
 @Entity
-@Table(name = "userService")
+@Table(name = "service")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UserService {
+public class Tarif {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private Long id_service;
+    private int id_range;
 
-    private int id_phone;
+    private int id_typeResource;
 
-    private int value;
+    private int min;
 
-    private Date dayPayment;
+    private int max;
+
+    private float coefficient;
 }

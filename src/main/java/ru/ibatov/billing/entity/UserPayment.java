@@ -6,13 +6,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Entity
-@Table(name = "remainTariff")
+@Table(name = "userPayment")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class RemainTariff {
+public class UserPayment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,9 +22,7 @@ public class RemainTariff {
 
     private int id_phone;
 
-    private float internet;
+    private float money;
 
-    private float minutes;
-
-    private int sms;
+    private Date dayPayment;
 }

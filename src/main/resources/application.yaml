@@ -3,9 +3,9 @@ spring:
     name: billing
   datasource:
     driver-class-name: org.postgresql.Driver
-    username: ${usernameDB}
-    url: ${url}
-    password: ${passwordDB}
+    username: ${USERNAME_DB}
+    url: ${SPRING_DATASOURCE_URL}
+    password: ${PASSWORD_DB}
   jpa:
     database: POSTGRESQL
     hibernate:
