@@ -7,23 +7,22 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.Instant;
-import java.util.Date;
 
 @Entity
-@Table(name = "refreshToken")
+@Table(name = "code")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class RefreshToken {
+public class Code {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private Long user_id;
+    private String email;
 
-    private String token;
+    private String code;
 
-    private Instant expireDate;
+    private Instant expireTime;
 }

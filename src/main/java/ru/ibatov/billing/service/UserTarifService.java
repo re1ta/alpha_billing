@@ -1,26 +1,20 @@
 package ru.ibatov.billing.service;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.ibatov.billing.dto.NameValue;
 import ru.ibatov.billing.dto.NewTarif;
 import ru.ibatov.billing.dto.SortedTarifs;
 import ru.ibatov.billing.dto.UserTarifWithResource;
-import ru.ibatov.billing.entity.Names.TypeResource;
 import ru.ibatov.billing.entity.RemainTarif;
 import ru.ibatov.billing.entity.Tarif;
 import ru.ibatov.billing.entity.UserPayment;
 import ru.ibatov.billing.entity.UserTarif;
+import ru.ibatov.billing.repos.*;
 import ru.ibatov.billing.repos.Names.TypeResourceRepository;
-import ru.ibatov.billing.repos.RemainTarifRepository;
-import ru.ibatov.billing.repos.TarifRepository;
-import ru.ibatov.billing.repos.UserPaymentRepository;
-import ru.ibatov.billing.repos.UserTarifRepository;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -31,11 +25,14 @@ public class UserTarifService {
     private final UserPaymentRepository userPaymentRepo;
     private final TypeResourceRepository typeResourceRepo;
     private final RemainTarifRepository remainTariffRepo;
+    private final OutcomeService outcomeService;
+    private final RemainTarifService remainTarifService;
 
     public List<UserTarif> getAll() {
         return userTarifRepo.findAll();
     }
 
+    @Transactional
     public UserTarifWithResource getUserTarifs(int id_phone) {
         List<UserTarif> userTarifList = userTarifRepo.findByPhoneId(id_phone);
         RemainTarif currentUserTarif = remainTariffRepo.getCurrentStatus(id_phone);
@@ -77,6 +74,7 @@ public class UserTarifService {
 
         userPaymentRepo.save(buildUserPayment(newTarif));
         remainTariffRepo.save(buildRemainTarif(newTarif));
+        outcomeService.payForTarif(newTarif.getId_phone());
 
         return userTarifList;
     }
@@ -137,5 +135,31 @@ public class UserTarifService {
                 .minutes(newTarif.getMinutes())
                 .internet(newTarif.getInternet())
                 .build();
+    }
+
+    public List<UserTarif> update(NewTarif newTarif) {
+        deleteOldUserTarif(newTarif);
+        return save(newTarif);
+    }
+
+    @Transactional
+    private void deleteOldUserTarif(NewTarif newTarif){
+        remainTariffRepo.deleteByIdPhone(newTarif.getId_phone());
+        userPaymentRepo.deleteByIdPhone(newTarif.getId_phone());
+        userTarifRepo.deleteByIdPhone(newTarif.getId_phone());
+    }
+
+    @Transactional
+    public void wasteTarifs() {
+        Random r = new Random();
+        List<RemainTarif> remainTarifs = remainTariffRepo.findAll();
+        for(RemainTarif remainTarif : remainTarifs){
+            RemainTarif newRemain = new RemainTarif(remainTarif.getId_phone(),
+                    r.nextFloat(remainTarif.getInternet()),
+                    r.nextFloat(remainTarif.getMinutes()),
+                    r.nextInt(remainTarif.getSms()));
+            remainTarifService.update(newRemain);
+        }
+        System.out.println(remainTariffRepo.findAll());
     }
 }

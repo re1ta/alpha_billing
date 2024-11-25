@@ -2,13 +2,11 @@ package ru.ibatov.billing.repos.People;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import ru.ibatov.billing.entity.People.User;
+import ru.ibatov.billing.entity.People.Code;
 
-import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
-
-    Optional<User> findByEmail(String email);
+public interface CodeRepository extends JpaRepository<Code, Long> {
+    Optional<Code> findByEmail(String email);
 }

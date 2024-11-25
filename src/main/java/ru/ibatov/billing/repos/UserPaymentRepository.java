@@ -13,4 +13,7 @@ public interface UserPaymentRepository extends JpaRepository<UserPayment, Long> 
     @Query(value = "Select money From UserPayment a Where a.id_phone = :id")
     float getMoneyTarif(@Param("id") int id_phone);
 
+    @Modifying
+    @Query(value = "DELETE FROM UserPayment WHERE id_phone = ?1",nativeQuery = true)
+    void deleteByIdPhone(int id_phone);
 }

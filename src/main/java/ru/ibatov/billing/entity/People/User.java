@@ -23,4 +23,6 @@ public class User {
     private String surname;
 
     private String patronymic;
+
+    private String email;
 }

@@ -7,6 +7,9 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import ru.ibatov.billing.entity.RemainTarif;
 
+import java.util.List;
+import java.util.Optional;
+
 @Repository
 public interface RemainTarifRepository extends JpaRepository<RemainTarif, Long> {
 
@@ -16,4 +19,8 @@ public interface RemainTarifRepository extends JpaRepository<RemainTarif, Long> 
 
     @Query(value = "Select new ru.ibatov.billing.entity.RemainTarif(a.id, a.id_phone, a.internet, a.minutes, a.sms) From RemainTarif a Where a.id_phone = :id")
     RemainTarif getCurrentStatus(@Param("id") int id_phone);
+
+    @Modifying
+    @Query(value = "DELETE FROM Remain_Tarif WHERE id_phone = ?1",nativeQuery = true)
+    void deleteByIdPhone(int id_phone);
 }

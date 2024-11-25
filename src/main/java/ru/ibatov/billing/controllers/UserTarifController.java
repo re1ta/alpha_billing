@@ -30,4 +30,14 @@ public class UserTarifController {
     public List<UserTarif> saveUserTarif(@RequestBody NewTarif newTarif) {
         return userTarifService.save(newTarif);
     }
+
+    @PostMapping("/wasteTarif")
+    public void wasteTarifAllUsers(){
+        userTarifService.wasteTarifs();
+    }
+
+    @PutMapping("/")
+    public List<UserTarif> updateUserTarif(@RequestBody NewTarif newTarif){
+        return userTarifService.update(newTarif);
+    }
 }

@@ -14,4 +14,8 @@ public interface UserTarifRepository extends JpaRepository<UserTarif, Long> {
     @Modifying
     @Query(value = "Select * From User_Service Where id_phone = ?1", nativeQuery = true)
     List<UserTarif> findByPhoneId(int id);
+
+    @Modifying
+    @Query(value = "DELETE FROM User_Service WHERE id_phone = ?1",nativeQuery = true)
+    void deleteByIdPhone(int id_phone);
 }

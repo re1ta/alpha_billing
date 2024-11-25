@@ -25,4 +25,11 @@ public class RemainTarif {
     private float minutes;
 
     private int sms;
+
+    public RemainTarif(int id_phone, float internet, float minutes, int sms) {
+        this.id_phone = id_phone;
+        this.internet = internet;
+        this.minutes = minutes;
+        this.sms = sms;
+    }
 }
