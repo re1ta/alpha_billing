@@ -5,11 +5,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.ibatov.billing.dto.UserDto;
 import ru.ibatov.billing.dto.UserPhonesDto;
+import ru.ibatov.billing.entity.People.Role;
 import ru.ibatov.billing.entity.People.User;
 import ru.ibatov.billing.entity.Phone;
 import ru.ibatov.billing.repos.People.UserRepository;
 import ru.ibatov.billing.repos.PhoneRepository;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -24,6 +26,19 @@ public class UserService {
                 .name(userDto.getName())
                 .surname(userDto.getSurname())
                 .patronymic(userDto.getPatronymic())
+                .email(userDto.getEmail())
+                .roles(Collections.singleton(Role.USER))
+                .build();
+        userRepo.save(user);
+    }
+
+    public void createAdmin(UserDto userDto) {
+        User user = User.builder()
+                .name(userDto.getName())
+                .surname(userDto.getSurname())
+                .patronymic(userDto.getPatronymic())
+                .email(userDto.getEmail())
+                .roles(Collections.singleton(Role.ADMIN))
                 .build();
         userRepo.save(user);
     }
@@ -31,8 +46,7 @@ public class UserService {
     public UserPhonesDto fullInfoUser(Long id) {
         User user = userRepo.findById(id).get();
         List<Phone> phones = phoneRepo.findAllByUserId(id);
-        UserPhonesDto userPhonesDto = new UserPhonesDto(user, phones);
-        return userPhonesDto;
+        return new UserPhonesDto(user, phones);
     }
 
     @Transactional

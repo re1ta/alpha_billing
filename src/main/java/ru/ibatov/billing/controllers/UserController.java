@@ -31,6 +31,11 @@ public class UserController {
         userService.createUser(userDto);
     }
 
+    @PostMapping("/admin")
+    public void saveAdmin(@RequestBody UserDto userDto){
+        userService.createAdmin(userDto);
+    }
+
     @DeleteMapping("/{id}")
     public List<User> deleteUser(@PathVariable Long id){
         return userService.deleteUser(id);

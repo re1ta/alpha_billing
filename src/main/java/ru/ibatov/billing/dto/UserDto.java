@@ -10,4 +10,6 @@ public class UserDto {
     private String surname;
 
     private String patronymic;
+
+    private String email;
 }

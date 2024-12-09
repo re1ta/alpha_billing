@@ -64,6 +64,7 @@ public class UserTarifService {
                 .build();
     }
 
+    @Transactional
     public ArrayList<UserTarif> save(NewTarif newTarif) {
         SortedTarifs sortedTarifs = getAllTarifs();
         ArrayList<UserTarif> userTarifList = new ArrayList<>();
@@ -137,6 +138,7 @@ public class UserTarifService {
                 .build();
     }
 
+    @Transactional
     public List<UserTarif> update(NewTarif newTarif) {
         deleteOldUserTarif(newTarif);
         return save(newTarif);

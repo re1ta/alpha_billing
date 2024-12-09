@@ -75,7 +75,7 @@ public class AuthService {
     private JwtResponse getToken(Long userId){
         RefreshToken refreshToken = refreshTokenService.createRefreshToken(userId);
         return JwtResponse.builder()
-                .accessToken(jwtService.generateToken(userId, 120000))
+                .accessToken(jwtService.generateToken(userId, 900000))
                 .token(refreshToken.getToken())
                 .build();
     }

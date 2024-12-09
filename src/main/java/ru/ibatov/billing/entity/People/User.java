@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Set;
+
 @Entity
 @Table(name = "usr")
 @Data
@@ -25,4 +27,10 @@ public class User {
     private String patronymic;
 
     private String email;
+
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_role",
+            joinColumns = @JoinColumn(name = "user_username"))
+    @Enumerated(EnumType.STRING)
+    private Set<Role> roles;
 }
