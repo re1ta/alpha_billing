@@ -28,4 +28,7 @@ public interface PhoneRepository extends JpaRepository<Phone, Integer> {
     void setActive(int id_phone, boolean active);
 
     Optional<Phone> findByNumber(String number);
+
+    @Query(value = "Select count(*) From Phone Where active = true")
+    int countActivePhones();
 }

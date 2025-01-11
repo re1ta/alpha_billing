@@ -139,9 +139,10 @@ public class UserTarifService {
     }
 
     @Transactional
-    public List<UserTarif> update(NewTarif newTarif) {
+    public UserTarifWithResource update(NewTarif newTarif) {
         deleteOldUserTarif(newTarif);
-        return save(newTarif);
+        save(newTarif);
+        return getUserTarifs(newTarif.getId_phone());
     }
 
     @Transactional

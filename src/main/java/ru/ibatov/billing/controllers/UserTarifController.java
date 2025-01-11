@@ -37,7 +37,7 @@ public class UserTarifController {
     }
 
     @PutMapping("/")
-    public List<UserTarif> updateUserTarif(@RequestBody NewTarif newTarif){
+    public UserTarifWithResource updateUserTarif(@RequestBody NewTarif newTarif){
         return userTarifService.update(newTarif);
     }
 }

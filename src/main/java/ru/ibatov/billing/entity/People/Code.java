@@ -20,7 +20,7 @@ public class Code {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String email;
+    private String source;
 
     private String code;
 

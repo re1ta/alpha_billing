@@ -3,9 +3,9 @@ package ru.ibatov.billing.dto;
 import lombok.Data;
 
 @Data
-public class EmailCode {
+public class SourceCode {
 
-    private String email;
+    private String source;
 
     private String code;
 }

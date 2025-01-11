@@ -10,8 +10,11 @@ import ru.ibatov.billing.repos.History.HistoryTariffWasteRepository;
 import ru.ibatov.billing.repos.PhoneRepository;
 import ru.ibatov.billing.repos.RemainTarifRepository;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Service
 @RequiredArgsConstructor
@@ -50,15 +53,40 @@ public class RemainTarifService {
                 .build();
     }
 
-    private void toHistoryWaste(RemainTarif remainTarif){
-        if(remainTarif.getInternet() != 0){
-            historyTariffWasteRepo.save(new HistoryTariffWaste(remainTarif.getId_phone(), remainTarif.getInternet(), 1,new Date()));
+    private void toHistoryWaste(RemainTarif remainTarif) {
+        if (remainTarif.getInternet() != 0) {
+            historyTariffWasteRepo.save(new HistoryTariffWaste(
+                    remainTarif.getId_phone(),
+                    remainTarif.getInternet(),
+                    1,
+                    getRandomDateThisYear()
+            ));
         }
-        if(remainTarif.getMinutes() != 0.0){
-            historyTariffWasteRepo.save(new HistoryTariffWaste(remainTarif.getId_phone(), remainTarif.getMinutes(), 3,new Date()));
+        if (remainTarif.getMinutes() != 0.0) {
+            historyTariffWasteRepo.save(new HistoryTariffWaste(
+                    remainTarif.getId_phone(),
+                    remainTarif.getMinutes(),
+                    3,
+                    getRandomDateThisYear()
+            ));
         }
-        if(remainTarif.getSms() != 0){
-            historyTariffWasteRepo.save(new HistoryTariffWaste(remainTarif.getId_phone(), remainTarif.getSms(), 2,new Date()));
+        if (remainTarif.getSms() != 0) {
+            historyTariffWasteRepo.save(new HistoryTariffWaste(
+                    remainTarif.getId_phone(),
+                    remainTarif.getSms(),
+                    2,
+                    getRandomDateThisYear()
+            ));
         }
+    }
+
+    private Date getRandomDateThisYear() {
+        int year = LocalDate.now().getYear();
+        LocalDate start = LocalDate.of(year, 1, 1);
+        LocalDate end = LocalDate.of(year, 12, 31);
+        long startEpoch = start.atStartOfDay(ZoneId.systemDefault()).toEpochSecond();
+        long endEpoch = end.atStartOfDay(ZoneId.systemDefault()).toEpochSecond();
+        long randomEpoch = ThreadLocalRandom.current().nextLong(startEpoch, endEpoch);
+        return Date.from(java.time.Instant.ofEpochSecond(randomEpoch));
     }
 }

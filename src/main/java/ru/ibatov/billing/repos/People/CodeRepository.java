@@ -8,5 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface CodeRepository extends JpaRepository<Code, Long> {
-    Optional<Code> findByEmail(String email);
+    Optional<Code> findBySource(String source);
 }

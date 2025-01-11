@@ -6,8 +6,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.ibatov.billing.dto.InOutcomePhone;
+import ru.ibatov.billing.dto.NameValue;
 import ru.ibatov.billing.dto.TarifWaste.AvgAllTarifWasteDto;
 import ru.ibatov.billing.dto.TarifWaste.AvgTarifWasteDto;
+import ru.ibatov.billing.entity.MonthNameValue;
 import ru.ibatov.billing.service.ReportService;
 
 import java.util.List;
@@ -48,4 +50,35 @@ public class ReportController {
     public double AllAvgOutcome() {
         return reportService.getAllAvgOutcome();
     }
+
+    @PostMapping("/countUser")
+    public int CountUser(){
+        return reportService.getCountUser();
+    }
+
+    @PostMapping("/avgPayment")
+    public float AvgPayment(){
+        return reportService.getAvgPayment();
+    }
+
+    @PostMapping("/procActive")
+    public float procActive(){
+        return reportService.getProcActive();
+    }
+
+    @PostMapping("/procInternetUse")
+    public List<NameValue> procInternetUse(){
+        return reportService.countProcInternetUse();
+    }
+
+    @PostMapping("/popularIncome")
+    public List<NameValue> popularIncome(){
+        return reportService.countPopularIncome();
+    }
+
+    @PostMapping("/avgMonthResourceUser")
+    public List<MonthNameValue> avgMonthResourceUser(){
+        return reportService.getAvgMonthResourceUser();
+    }
+
 }

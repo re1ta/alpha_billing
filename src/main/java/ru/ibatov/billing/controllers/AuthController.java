@@ -37,14 +37,19 @@ public class AuthController {
         return authService.checkPhone(phoneDto);
     }
 
-    @PostMapping("/sendCode")
+    @PostMapping("/sendCodeEmail")
     public void sendCode(@RequestBody Email email) {
         emailService.sendCodeToEmail(email.getEmail());
     }
 
+    @PostMapping("/sendCodeTelegram")
+    public String sendCodeTelegram(@RequestBody String number){
+        return authService.sendCodeToTelegram(number);
+    }
+
     @PostMapping("/checkCode")
-    public JwtResponse checkCode(@RequestBody EmailCode emailCode) {
-        return authService.checkCodeInDb(emailCode);
+    public JwtResponse checkCode(@RequestBody SourceCode sourceCode) {
+        return authService.checkCodeInDb(sourceCode);
     }
 
     @PostMapping("/logout")

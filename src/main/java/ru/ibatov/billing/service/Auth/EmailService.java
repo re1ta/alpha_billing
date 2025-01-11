@@ -20,6 +20,7 @@ import java.util.Properties;
 public class EmailService {
 
     private final CodeRepository codeRepo;
+    private final AuthService authService;
 
     @Value("${email.password}")
     private String password_mail;
@@ -45,7 +46,7 @@ public class EmailService {
         );
         session.setDebug(true);
         try {
-            String code = generateCode();
+            String code = authService.generateCode();
             String text = "Ваш код подтверждения, который действует 5 минут: " + code;
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress(from));
@@ -53,29 +54,9 @@ public class EmailService {
             message.setSubject("Вход в Альфа-биллинг");
             message.setText(text);
             Transport.send(message);
-            codeRepo.save(makeObjectCode(to,code));
+            codeRepo.save(authService.makeObjectCode(to,code));
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    public String generateCode() {
-        String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        int CODE_LENGTH = 6;
-        SecureRandom RANDOM = new SecureRandom();
-        StringBuilder code = new StringBuilder(CODE_LENGTH);
-        for (int i = 0; i < CODE_LENGTH; i++) {
-            int index = RANDOM.nextInt(CHARACTERS.length());
-            code.append(CHARACTERS.charAt(index));
-        }
-        return code.toString();
-    }
-
-    private Code makeObjectCode(String email, String code){
-        return Code.builder()
-                .email(email)
-                .code(code)
-                .expireTime((Instant.now().plus(Duration.ofMinutes(5))))
-                .build();
     }
 }
